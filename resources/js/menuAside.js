@@ -10,6 +10,9 @@ import {
   mdiTelevisionGuide,
   mdiResponsive,
   mdiPalette,
+  mdiCog,
+  mdiCodeBraces,
+  mdiCompost,
 } from "@mdi/js";
 
 export default [
@@ -67,6 +70,46 @@ export default [
       },
       {
         label: "Item Two",
+      },
+    ],
+  },
+  {
+    label: "Utilities",
+    icon: mdiCog,
+    menu: [
+      {
+        label: "Roles",
+      },
+      {
+        label: "Menu",
+      },
+    ],
+  },
+  {
+    label: "Developers Option",
+    icon: mdiCodeBraces,
+    menu: [
+      {
+        label: "Components",
+        menu: [
+          { 
+            label: 'Buttons',
+          },
+          { 
+            label: 'Overlays',
+          },
+        ]
+      },
+      {
+        label: "Tables",
+        menu: [
+          {
+            label: 'Data Table'
+          },
+          {
+            label: 'Simple Table'
+          }
+        ]
       },
     ],
   },

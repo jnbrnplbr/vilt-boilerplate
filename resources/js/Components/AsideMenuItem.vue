@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useStyleStore } from "@/Stores/style.js";
-import { mdiMinus, mdiPlus } from "@mdi/js";
+import { mdiMinus, mdiPlus, mdiChevronDown, mdiChevronUp } from "@mdi/js";
 import { getButtonColor } from "@/colors.js";
 import BaseIcon from "@/Components/BaseIcon.vue";
 import AsideMenuList from "@/Components/AsideMenuList.vue";
@@ -81,7 +81,7 @@ const activeInactiveStyle = computed(
       >
       <BaseIcon
         v-if="hasDropdown"
-        :path="isDropdownActive ? mdiMinus : mdiPlus"
+        :path="isDropdownActive ? mdiChevronUp : mdiChevronDown"
         class="flex-none"
         :class="activeInactiveStyle"
         w="w-12"
