@@ -1,8 +1,7 @@
 <script setup>
 import { mdiChevronUp, mdiChevronDown } from "@mdi/js";
-import { Link } from '@inertiajs/inertia-vue3'
 import { computed, ref, onMounted, onBeforeUnmount } from "vue";
-import { usePage } from '@inertiajs/inertia-vue3'
+import { usePage,Link } from '@inertiajs/vue3'
 import { useStyleStore } from "@/Stores/style.js";
 import BaseIcon from "@/Components/BaseIcon.vue";
 import UserAvatarCurrentUser from "@/Components/UserAvatarCurrentUser.vue";
@@ -47,7 +46,7 @@ const componentClass = computed(() => {
   return base;
 });
 
-const itemLabel = computed(() => props.item.isCurrentUser ? usePage().props.value.auth.user.name : props.item.label)
+const itemLabel = computed(() => props.item.isCurrentUser ? usePage().props.auth.user.name : props.item.label)
 
 
 const isDropdownActive = ref(false);
@@ -106,10 +105,10 @@ onBeforeUnmount(() => {
           item.menu,
       }"
     >
-      <UserAvatarCurrentUser
+      <!-- <UserAvatarCurrentUser
         v-if="item.isCurrentUser"
         class="w-6 h-6 mr-3 inline-flex"
-      />
+      /> -->
       <BaseIcon v-if="item.icon" :path="item.icon" class="transition-colors" />
       <span
         class="px-2 transition-colors"

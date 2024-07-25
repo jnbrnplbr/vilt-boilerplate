@@ -1,5 +1,5 @@
 <script setup>
-import { useForm, usePage, Head } from '@inertiajs/inertia-vue3'
+import { useForm, usePage, Head } from '@inertiajs/vue3'
 import { computed } from 'vue'
 import { mdiAccount, mdiEmail, mdiFormTextboxPassword } from '@mdi/js'
 import LayoutGuest from '@/layouts/LayoutGuest.vue'
@@ -21,7 +21,7 @@ const form = useForm({
   terms: [],
 })
 
-const hasTermsAndPrivacyPolicyFeature = computed(() => usePage().props.value?.jetstream?.hasTermsAndPrivacyPolicyFeature )
+const hasTermsAndPrivacyPolicyFeature = computed(() => usePage().props?.jetstream?.hasTermsAndPrivacyPolicyFeature )
 
 const submit = () => {
   form

@@ -11,7 +11,7 @@ import NavBar from "@/Components/NavBar.vue";
 import NavBarItemPlain from "@/Components/NavBarItemPlain.vue";
 import AsideMenu from "@/Components/AsideMenu.vue";
 import FooterBar from "@/Components/FooterBar.vue";
-import { Inertia } from '@inertiajs/inertia'
+import { router } from '@inertiajs/vue3'
 
 useMainStore().setUser({
   name: "John Doe",
@@ -28,7 +28,7 @@ const styleStore = useStyleStore();
 const isAsideMobileExpanded = ref(false);
 const isAsideLgActive = ref(false);
 
-Inertia.on('navigate', () => {
+router.on('navigate', () => {
   isAsideMobileExpanded.value = false
   isAsideLgActive.value = false
 })
@@ -40,7 +40,7 @@ const menuClick = (event, item) => {
   }
 
   if (item.isLogout) {
-    Inertia.post(route('logout'))
+    router.post(route('logout'))
   }
 };
 </script>
