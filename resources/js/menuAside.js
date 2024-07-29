@@ -21,48 +21,48 @@ export default [
     icon: mdiMonitor,
     label: "Dashboard",
   },
+  // {
+  //   to: "/tables",
+  //   label: "Tables",
+  //   icon: mdiTable,
+  // },
+  // {
+  //   to: "/forms",
+  //   label: "Forms",
+  //   icon: mdiSquareEditOutline,
+  // },
+  // {
+  //   to: "/ui",
+  //   label: "UI",
+  //   icon: mdiTelevisionGuide,
+  // },
+  // {
+  //   to: "/responsive",
+  //   label: "Responsive",
+  //   icon: mdiResponsive,
+  // },
+  // {
+  //   to: "/",
+  //   label: "Styles",
+  //   icon: mdiPalette,
+  // },
+  // {
+  //   to: "/profile",
+  //   label: "Profile",
+  //   icon: mdiAccountCircle,
+  // },
+  // {
+  //   to: "/login",
+  //   label: "Login",
+  //   icon: mdiLock,
+  // },
+  // {
+  //   to: "/error",
+  //   label: "Error",
+  //   icon: mdiAlertCircle,
+  // },
   {
-    to: "/tables",
-    label: "Tables",
-    icon: mdiTable,
-  },
-  {
-    to: "/forms",
-    label: "Forms",
-    icon: mdiSquareEditOutline,
-  },
-  {
-    to: "/ui",
-    label: "UI",
-    icon: mdiTelevisionGuide,
-  },
-  {
-    to: "/responsive",
-    label: "Responsive",
-    icon: mdiResponsive,
-  },
-  {
-    to: "/",
-    label: "Styles",
-    icon: mdiPalette,
-  },
-  {
-    to: "/profile",
-    label: "Profile",
-    icon: mdiAccountCircle,
-  },
-  {
-    to: "/login",
-    label: "Login",
-    icon: mdiLock,
-  },
-  {
-    to: "/error",
-    label: "Error",
-    icon: mdiAlertCircle,
-  },
-  {
-    label: "Dropdown",
+    label: "File Maintenance",
     icon: mdiViewList,
     menu: [
       {
@@ -114,7 +114,7 @@ export default [
     ],
   },
   {
-    href: "https://github.com/justboil/admin-one-vue-tailwind",
+    href: "https://github.com/jnbrnplbr",
     label: "GitHub",
     icon: mdiGithub,
     target: "_blank",
