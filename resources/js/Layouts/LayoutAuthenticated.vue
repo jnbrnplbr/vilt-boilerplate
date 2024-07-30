@@ -1,6 +1,6 @@
 <script setup>
 import { mdiForwardburger, mdiBackburger, mdiMenu } from "@mdi/js";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import menuAside from "@/menuAside.js";
 import menuNavBar from "@/menuNavBar.js";
 import { useMainStore } from "@/Stores/main.js";
@@ -12,6 +12,7 @@ import NavBarItemPlain from "@/Components/NavBarItemPlain.vue";
 import AsideMenu from "@/Components/AsideMenu.vue";
 import FooterBar from "@/Components/FooterBar.vue";
 import { router } from '@inertiajs/vue3'
+import Alert from "@/Shared/Alert.vue";
 
 useMainStore().setUser({
   name: "John Doe",
@@ -43,6 +44,15 @@ const menuClick = (event, item) => {
     router.post(route('logout'))
   }
 };
+
+const isVisible = ref(false);
+
+watch(isVisible, () => {
+    setTimeout(() => {
+        isVisible.value = false
+    }, 3000)
+});
+
 </script>
 
 <template>
@@ -95,16 +105,15 @@ const menuClick = (event, item) => {
         @menu-click="menuClick"
         @aside-lg-close-click="isAsideLgActive = false"
       />
-      <slot />
-      <FooterBar>
-        Get more with
-        <a
-          href="https://tailwind-vue.justboil.me/"
-          target="_blank"
-          class="text-blue-600"
-          >Premium version</a
-        >
-      </FooterBar>
-    </div>
+      
+
+        <slot />
+        <!-- <button class="p-3 bg-warning" @click="isVisible = true">Click me</button> -->
+        <FooterBar>
+        </FooterBar>
+        <div class="fixed inset-0 flex flex-col-reverse p-9 overflow-hidden z-100 pointer-events-none">
+          <Alert :visible="isVisible"></Alert>
+        </div>
+      </div>
   </div>
 </template>

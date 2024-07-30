@@ -17,7 +17,7 @@ import {
 
 export default [
   {
-    to: "/dashboard",
+    route: "dashboard",
     icon: mdiMonitor,
     label: "Dashboard",
   },
@@ -66,11 +66,27 @@ export default [
     icon: mdiViewList,
     menu: [
       {
-        label: "Item One",
+        label: "Company",
+        menu: [
+          {
+            label: "Company"
+          },
+          {
+            label: "Branch",
+          },
+          {
+            label: "Department"
+          }
+        ]
       },
       {
-        label: "Item Two",
+        route: "users:doctors",
+        label: "Doctors",
       },
+      {
+        route: "users:patients",
+        label: "Patients"
+      }
     ],
   },
   {
@@ -78,11 +94,15 @@ export default [
     icon: mdiCog,
     menu: [
       {
+        label: "Menu",
+      },
+      {
         label: "Roles",
       },
       {
-        label: "Menu",
-      },
+        route: "users:index",
+        label: "Users"
+      }
     ],
   },
   {
@@ -94,6 +114,10 @@ export default [
         menu: [
           { 
             label: 'Buttons',
+          },
+          {
+            route: 'dev:components:form-field',
+            label: 'Form Field',
           },
           { 
             label: 'Overlays',

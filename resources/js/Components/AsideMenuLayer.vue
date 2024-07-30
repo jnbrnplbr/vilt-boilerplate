@@ -49,7 +49,8 @@ const asideLgCloseClick = (event) => {
         <div
           class="text-center flex-1 lg:text-left lg:pl-6 xl:text-center xl:pl-0"
         >
-          <b class="font-black">One</b>
+          <img src="/rjb-white.png" class="object-fit text-center p-5">
+          <!-- <b class="font-black">PMS</b> -->
         </div>
         <button
           class="hidden lg:inline-block xl:hidden p-3"
@@ -69,9 +70,9 @@ const asideLgCloseClick = (event) => {
         <AsideMenuList :menu="menu" @menu-click="menuClick" />
       </div>
 
-      <ul>
+      <!-- <ul>
         <AsideMenuItem :item="logoutItem" @menu-click="menuClick" />
-      </ul>
+      </ul> -->
     </div>
   </aside>
 </template>
