@@ -3,6 +3,7 @@ import {
   mdiCog,  
   mdiChevronDown,
   mdiChevronUp, 
+  mdiBackspace,
 } from "@mdi/js";
 import { useSlots, computed, ref } from "vue";
 import { Link} from '@inertiajs/vue3';
@@ -25,6 +26,14 @@ defineProps({
     default: {
       visible: false,
       route: ''
+    }
+  },
+  back: {
+    type: Object,
+    default: {
+      visible: false,
+      route: '',
+      class: ''
     }
   },
   filter: {
@@ -61,6 +70,14 @@ const showFilter = ref(false);
                 <span>Add New</span>
             </Link>
             <BaseButton
+              v-if="back.visible" 
+              :icon="mdiBackspace" 
+              color="contrast" 
+              :routeName="back.route"
+              class="text-xs"
+              :small="true"
+            />
+            <BaseButton
               v-if="filter" 
               :icon="showFilter ? mdiChevronUp : mdiChevronDown" 
               color="whiteDark" 
@@ -68,6 +85,7 @@ const showFilter = ref(false);
               class="text-xs"
               :small="true"
             />
+            
           </div>
         </div>
       

@@ -18,11 +18,29 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            // 'first_name' => fake()->name(),
+            // 'middle_name' => fake()->name(),
+            // 'last_name' => fake()->name(),
+            // 'email' => fake()->unique()->safeEmail(),
+            // 'email_verified_at' => now(),
+            // 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            // 'remember_token' => Str::random(10),
+
+            'email'         => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
+            'password'      => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'prefix'        => 'Mr.',
+            'suffix'        => '',
+            'first_name'    => 'Brye',
+            'middle_name'   => 'Plata',
+            'last_name'     => 'Ebora',
+            'contact'       => '09056677255',
+            'birthday'      => now(),
+            'blood_type_id' => 1,
+            'gender_id'     => 1,
+            'role_id'       => 1,
+            'created_by'    => 1
         ];
     }
 

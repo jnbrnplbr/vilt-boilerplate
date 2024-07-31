@@ -23,9 +23,10 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('middle_name')->nullable();
             $table->string('last_name');
-            $table->string('contacts');
+            $table->string('contact');
             $table->date('birthday');
-            $table->string('blood_type')->nullable();
+            $table->integer('blood_type_id')->nullable();
+            $table->integer('gender_id')->nullable();
             $table->integer('role_id');
             $table->integer('created_by');
 

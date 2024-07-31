@@ -69,15 +69,22 @@ export default [
         label: "Company",
         menu: [
           {
-            label: "Company"
+            label: "Companies"
           },
           {
-            label: "Branch",
+            label: "Branches",
           },
           {
-            label: "Department"
+            label: "Departments"
           }
         ]
+      },
+      {
+        route: "genders:index",
+        label: "Genders",
+      },
+      {
+        label: "Blood Types",
       },
       {
         route: "users:doctors",
