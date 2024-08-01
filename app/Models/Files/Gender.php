@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Gender extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['description', 'created_by'];
 }

@@ -1,6 +1,6 @@
 <script setup>
 import { mdiForwardburger, mdiBackburger, mdiMenu } from "@mdi/js";
-import { ref, watch } from "vue";
+import { ref, watch,computed, reactive } from "vue";
 import menuAside from "@/menuAside.js";
 import menuNavBar from "@/menuNavBar.js";
 import { useMainStore } from "@/Stores/main.js";
@@ -11,8 +11,8 @@ import NavBar from "@/Components/NavBar.vue";
 import NavBarItemPlain from "@/Components/NavBarItemPlain.vue";
 import AsideMenu from "@/Components/AsideMenu.vue";
 import FooterBar from "@/Components/FooterBar.vue";
-import { router } from '@inertiajs/vue3'
-import Alert from "@/Shared/Alert.vue";
+import { router, usePage } from '@inertiajs/vue3'
+import AlertHandler from "@/Shared/AlertHandler.vue";
 
 useMainStore().setUser({
   name: "John Doe",
@@ -45,13 +45,6 @@ const menuClick = (event, item) => {
   }
 };
 
-const isVisible = ref(false);
-
-watch(isVisible, () => {
-    setTimeout(() => {
-        isVisible.value = false
-    }, 3000)
-});
 
 </script>
 
@@ -109,10 +102,9 @@ watch(isVisible, () => {
 
         <slot />
         <!-- <button class="p-3 bg-warning" @click="isVisible = true">Click me</button> -->
-        <FooterBar>
-        </FooterBar>
+        <FooterBar></FooterBar>
         <div class="fixed inset-0 flex flex-col-reverse p-9 overflow-hidden z-100 pointer-events-none">
-          <Alert :visible="isVisible"></Alert>
+          <AlertHandler/>
         </div>
       </div>
   </div>
