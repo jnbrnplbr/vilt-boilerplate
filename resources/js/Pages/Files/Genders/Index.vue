@@ -11,6 +11,12 @@ import BaseButton from "../../../Components/BaseButton.vue";
 import { Head, Link} from '@inertiajs/vue3';
 import CardBox from "../../../Components/CardBox.vue";
 import TableSampleClients from "@/Components/TableSampleClients.vue";
+import BaseTable from "@/Components/BaseTable.vue";
+import { genders as tableSetting } from "@/Constants/table-files";
+
+const props = defineProps({
+    genders: Object
+});
 
 
 </script>
@@ -23,6 +29,7 @@ import TableSampleClients from "@/Components/TableSampleClients.vue";
             :icon="mdiChartTimelineVariant"
             title="Genders"
             main
+            :add="{visible:true, route: 'genders:create'}"
         >
             <template #links>
                 <span class="text-xs muted">File Maintenance > 
@@ -36,7 +43,12 @@ import TableSampleClients from "@/Components/TableSampleClients.vue";
             </template>
         </SectionTitleLineWithButton>
         <CardBox class="mb-6" has-table>
-            
+            <BaseTable 
+                :items="genders"
+                :settings="tableSetting"
+                :checkable="{visible: true, props: 'description'}"
+            >
+            </BaseTable>
         </CardBox>
     </SectionMain>
   </LayoutAuthenticated>

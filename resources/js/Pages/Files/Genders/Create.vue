@@ -60,28 +60,27 @@ const form = useForm({
 
 <template>
     <LayoutAuthenticated>
-    <Head title="Utilities: Users List" />
+    <Head title="File Maintenance: Create Gender" />
     <SectionMain>
         <SectionTitleLineWithButton
             :icon="mdiChartTimelineVariant"
-            title="Create User"
+            title="Create Gender"
             main
-            :back="{visible:true, route: 'users:index'}"
+            :back="{visible:true, route: 'genders:index'}"
         >
             <template #links>
-                <span class="text-xs muted">Utilities > 
+                <span class="text-xs muted">File Maintenance > 
                     <Link 
                         class="font-semibold text-sky-900"
-                        :href="route('users:index')"
+                        :href="route('genders:index')"
                     >
-                        User Lists
+                        Gender Lists
                     </Link>
-                    > Create User
+                    > Create Gender
                 </span>
             </template>
         </SectionTitleLineWithButton>
         <CardBox class="mb-6">
-            <label class="block font-bold mb-2">Personal Information</label>
             <div class="grid grid-cols-3 gap-4">
                 <div>
                     <div>
