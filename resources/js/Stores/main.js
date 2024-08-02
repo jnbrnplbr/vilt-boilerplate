@@ -17,8 +17,8 @@ export const useMainStore = defineStore("main", {
   }),
   actions: {
     setUser(payload) {
-      if (payload.name) {
-        this.userName = payload.name;
+      if (payload.first_name) {
+        this.userName = payload.first_name+' '+payload.last_name;
       }
       if (payload.email) {
         this.userEmail = payload.email;
@@ -30,7 +30,7 @@ export const useMainStore = defineStore("main", {
 
     fetch(sampleDataKey) {
       axios
-        .get(`data-sources/${sampleDataKey}.json`)
+        .get(`https://justboil.github.io/admin-one-vue-tailwind/data-sources/${sampleDataKey}.json`)
         .then((r) => {
           if (r.data && r.data.data) {
             this[sampleDataKey] = r.data.data;

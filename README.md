@@ -1,6 +1,12 @@
 
 
 
+## 1 August 2024 Update
+1. Added new library ``uuid``. Run ``npm install``.
+
+## 31 July 2024 Update 
+
+1. Make sure to run ``composer install`` cause we add new package ``doctrine/dbal`` to enable ``db:table`` features.
 
 ## About VueJS
 

@@ -16,10 +16,10 @@ Route::middleware('guest')->group(function () {
 
     Route::post('register', [RegisteredUserController::class, 'store']);
 
-    Route::get('login', [AuthenticatedSessionController::class, 'create'])
+    Route::get('/', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
 
-    Route::post('login', [AuthenticatedSessionController::class, 'store']);
+    Route::post('/', [AuthenticatedSessionController::class, 'store']);
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
                 ->name('password.request');
@@ -35,6 +35,7 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    
     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
                 ->name('verification.notice');
 
@@ -53,4 +54,21 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
+
+    Route::group(['prefix' => 'files'], function () {
+        require __DIR__.'/files/users.php';
+        require __DIR__.'/files/genders.php';
+    });
+                      
+    Route::group(['prefix' => 'utilities'], function () {
+        require __DIR__.'/utilities/users.php';
+        require __DIR__.'/utilities/roles.php';
+    });
+
+    Route::group(['prefix' => 'developers'], function () {
+        Route::group(['prefix' => 'components'], function () {
+            require __DIR__.'/developers/components.php';
+        });
+    });
+
 });

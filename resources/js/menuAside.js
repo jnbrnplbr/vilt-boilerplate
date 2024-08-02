@@ -17,60 +17,83 @@ import {
 
 export default [
   {
-    to: "/dashboard",
+    route: "dashboard",
     icon: mdiMonitor,
     label: "Dashboard",
   },
+  // {
+  //   to: "/tables",
+  //   label: "Tables",
+  //   icon: mdiTable,
+  // },
+  // {
+  //   to: "/forms",
+  //   label: "Forms",
+  //   icon: mdiSquareEditOutline,
+  // },
+  // {
+  //   to: "/ui",
+  //   label: "UI",
+  //   icon: mdiTelevisionGuide,
+  // },
+  // {
+  //   to: "/responsive",
+  //   label: "Responsive",
+  //   icon: mdiResponsive,
+  // },
+  // {
+  //   to: "/",
+  //   label: "Styles",
+  //   icon: mdiPalette,
+  // },
+  // {
+  //   to: "/profile",
+  //   label: "Profile",
+  //   icon: mdiAccountCircle,
+  // },
+  // {
+  //   to: "/login",
+  //   label: "Login",
+  //   icon: mdiLock,
+  // },
+  // {
+  //   to: "/error",
+  //   label: "Error",
+  //   icon: mdiAlertCircle,
+  // },
   {
-    to: "/tables",
-    label: "Tables",
-    icon: mdiTable,
-  },
-  {
-    to: "/forms",
-    label: "Forms",
-    icon: mdiSquareEditOutline,
-  },
-  {
-    to: "/ui",
-    label: "UI",
-    icon: mdiTelevisionGuide,
-  },
-  {
-    to: "/responsive",
-    label: "Responsive",
-    icon: mdiResponsive,
-  },
-  {
-    to: "/",
-    label: "Styles",
-    icon: mdiPalette,
-  },
-  {
-    to: "/profile",
-    label: "Profile",
-    icon: mdiAccountCircle,
-  },
-  {
-    to: "/login",
-    label: "Login",
-    icon: mdiLock,
-  },
-  {
-    to: "/error",
-    label: "Error",
-    icon: mdiAlertCircle,
-  },
-  {
-    label: "Dropdown",
+    label: "File Maintenance",
     icon: mdiViewList,
     menu: [
       {
-        label: "Item One",
+        label: "Company",
+        menu: [
+          {
+            label: "Companies"
+          },
+          {
+            label: "Branches",
+          },
+          {
+            label: "Departments"
+          }
+        ]
       },
       {
-        label: "Item Two",
+        route: "genders:index",
+        label: "Genders",
       },
+      {
+        label: "Blood Types",
+      },
+      {
+        route: "users:doctors",
+        label: "Doctors",
+      },
+      {
+        route: "users:patients",
+        label: "Patients"
+      }
     ],
   },
   {
@@ -78,11 +101,15 @@ export default [
     icon: mdiCog,
     menu: [
       {
+        label: "Menu",
+      },
+      {
         label: "Roles",
       },
       {
-        label: "Menu",
-      },
+        route: "users:index",
+        label: "Users"
+      }
     ],
   },
   {
@@ -94,6 +121,10 @@ export default [
         menu: [
           { 
             label: 'Buttons',
+          },
+          {
+            route: 'dev:components:form-field',
+            label: 'Form Field',
           },
           { 
             label: 'Overlays',
@@ -114,7 +145,7 @@ export default [
     ],
   },
   {
-    href: "https://github.com/justboil/admin-one-vue-tailwind",
+    href: "https://github.com/jnbrnplbr",
     label: "GitHub",
     icon: mdiGithub,
     target: "_blank",
