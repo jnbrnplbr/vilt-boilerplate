@@ -10,7 +10,7 @@ import LayoutAuthenticated from "@/Layouts/LayoutAuthenticated.vue";
 import SectionTitleLineWithButton from "@/Components/SectionTitleLineWithButton.vue";
 import SectionMain from "@/Components/SectionMain.vue";
 import BaseButton from "../../../Components/BaseButton.vue";
-import { useForm, Head, Link, router } from '@inertiajs/vue3';
+import { useForm, Head, Link, router,usePage } from '@inertiajs/vue3';
 import CardBox from "../../../Components/CardBox.vue";
 import FormField from "@/Components/FormField.vue";
 import FormControl from "@/Components/FormControl.vue";
@@ -68,7 +68,8 @@ const submit = () => {
                         <FormField
                             label="Gender Description"
                             label-for="description"
-                            help="Please enter the gender description"
+                            :help="'Please enter your gender' || form.errors?.description"
+                            :error="form.errors?.description"
                         >
                             <FormControl
                                 v-model="form.description"
@@ -76,6 +77,7 @@ const submit = () => {
                                 autocomplete="description"
                                 type="text"
                                 required
+                                
                             />
                         </FormField>
                     </div>

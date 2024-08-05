@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Files;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Files\GenderRequest;
 use App\Models\Files\Gender;
-use Illuminate\Support\Facades\Auth;
+use Exception;
+use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 
 class GenderController extends Controller
@@ -25,18 +26,52 @@ class GenderController extends Controller
         ]);
     }
 
-    public function create ()
+    public function create ()   
     {
         return Inertia::render('Files/Genders/Create');
     }
 
-    public function store (GenderRequest $request)
+    public function store (Request $request)
     {
-        if(Gender::create(['description' => $request->description, 'created_by' => Auth::user()->id]))
+
+            // $validated = Request::validate([
+            //     'description'   => ['required'],
+            // ]);
+
+            // $validated['created_by'] = 1;
+            
+            // if(Gender::create($validated))
+            // {
+            //     return back()->with('alert', ['type' => 'success', 'message' => 'Successfully Added.']);
+            // }
+        try{
+            $validated = Request::validate([
+                'description'   => ['required'],
+            ]);
+
+            $validated['created_by'] = 1;
+
+            if(Gender::create($validated))
+            {
+                return back()->with('alert', ['type' => 'success', 'message' => 'Successfully Add.']);
+            }
+            
+        }catch(Exception $e)
         {
-            return back()->with('alert',['type' => 'success', 'message' => 'Successfully Added.']);
+            $msgs = array();
+            foreach($e->validator->messages()->messages() as $m)
+            {
+                array_push($msgs,['type' => 'error', 'message' => $m[0]]);
+            }
+
+            return back()->with('alert',(object)$msgs);
+
         }
 
-        return back()->with('error',['type' => 'error', 'message' => 'Something went wrong.']);
+        // if(Gender::create(['description' => $request->description, 'created_by' => Auth::user()->id]))
+        // {
+        //     return back()->with('alert',['type' => 'success', 'message' => 'Successfully Added.']);
+        // }
+        // return back()->with('error',['type' => 'error', 'message' => 'Something went wrong.']);
     }
 }

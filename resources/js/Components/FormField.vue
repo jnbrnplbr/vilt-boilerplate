@@ -13,7 +13,7 @@ defineProps({
   help: {
     type: String,
     default: null,
-  },
+},
 });
 
 const slots = useSlots();
