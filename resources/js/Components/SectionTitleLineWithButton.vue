@@ -3,7 +3,7 @@ import {
   mdiCog,  
   mdiChevronDown,
   mdiChevronUp, 
-  mdiBackspace,
+  mdiKeyboardReturn
 } from "@mdi/js";
 import { useSlots, computed, ref } from "vue";
 import { Link} from '@inertiajs/vue3';
@@ -71,7 +71,7 @@ const showFilter = ref(false);
             </Link>
             <BaseButton
               v-if="back.visible" 
-              :icon="mdiBackspace" 
+              :icon="mdiKeyboardReturn" 
               color="contrast" 
               :routeName="back.route"
               class="text-xs"

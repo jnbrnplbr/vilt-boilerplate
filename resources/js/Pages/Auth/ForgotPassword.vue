@@ -1,16 +1,16 @@
 <script setup>
-import { useForm, Head, Link } from '@inertiajs/inertia-vue3'
+import { useForm, Head, Link } from '@inertiajs/vue3'
 import { mdiEmail } from '@mdi/js'
-import LayoutGuest from '@/layouts/LayoutGuest.vue'
-import SectionFullScreen from '@/components/SectionFullScreen.vue'
-import CardBox from '@/components/CardBox.vue'
-import FormField from '@/components/FormField.vue'
-import FormControl from '@/components/FormControl.vue'
-import BaseDivider from '@/components/BaseDivider.vue'
-import BaseButton from '@/components/BaseButton.vue'
-import FormValidationErrors from '@/components/FormValidationErrors.vue'
-import NotificationBarInCard from '@/components/NotificationBarInCard.vue'
-import BaseLevel from '@/components/BaseLevel.vue'
+import LayoutGuest from '@/Layouts/LayoutGuest.vue'
+import SectionFullScreen from '@/Components/SectionFullScreen.vue'
+import CardBox from '@/Components/CardBox.vue'
+import FormField from '@/Components/FormField.vue'
+import FormControl from '@/Components/FormControl.vue'
+import BaseDivider from '@/Components/BaseDivider.vue'
+import BaseButton from '@/Components/BaseButton.vue'
+import FormValidationErrors from '@/Components/FormValidationErrors.vue'
+import NotificationBarInCard from '@/Components/NotificationBarInCard.vue'
+import BaseLevel from '@/Components/BaseLevel.vue'
 
 defineProps({
   status: {

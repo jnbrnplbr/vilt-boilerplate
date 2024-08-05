@@ -1,5 +1,5 @@
 <script setup>
-import { mdiClose, mdiCheckDecagram } from "@mdi/js";
+import { mdiClose, mdiCheckDecagram, mdiAlertBox } from "@mdi/js";
 import { ref, watch,computed, reactive } from 'vue';
 import { usePage, router } from '@inertiajs/vue3';
 import useAlerts from "@/Composables/use-alerts";
@@ -32,14 +32,17 @@ watch(alert, (newVal) => {
             'border-red-700 dark:border-red-500 ring-red-700 dark:ring-red-700 bg-red-400 dark:bg-red-500 text-dark hover:bg-red-700 hover:border-red-700 hover:dark:bg-red-600 hover:dark:border-red-600': a.type === 'error'
         }" 
     >   
-        <span class="inline-flex justify-center items-center w-6 h-6 mr-5">
-        <svg
-            viewBox="0 0 24 24"
-            width="24"
-            height="24"
-            class="inline-block"
-        >
-        <path fill="" :d="mdiCheckDecagram" />
+        <span class="inline-flex justify-center items-center w-6 h-6 mr-2">
+            <svg
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                class="inline-block"
+            >
+            <path 
+                fill="" 
+                :d="`${a.type != 'success'? mdiAlertBox : mdiCheckDecagram }`" 
+            />
         </svg>
         </span>
         {{ a.message }}

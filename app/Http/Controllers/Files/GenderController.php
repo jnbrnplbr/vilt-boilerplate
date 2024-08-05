@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Files\GenderRequest;
 use App\Models\Files\Gender;
 use Exception;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
 
@@ -47,31 +48,22 @@ class GenderController extends Controller
         try{
             $validated = Request::validate([
                 'description'   => ['required'],
+                // 'test'  => ['required']
             ]);
 
             $validated['created_by'] = 1;
 
             if(Gender::create($validated))
             {
-                return back()->with('alert', ['type' => 'success', 'message' => 'Successfully Add.']);
+                return back()->with('alert', ['type' => 'success', 'message' => 'Successfully Added.']);
             }
             
         }catch(Exception $e)
         {
-            $msgs = array();
-            foreach($e->validator->messages()->messages() as $m)
-            {
-                array_push($msgs,['type' => 'error', 'message' => $m[0]]);
-            }
-
-            return back()->with('alert',(object)$msgs);
-
+            $msg = Arr::flatten(array_values($e->validator->messages()->messages()));
+            return back()->with('alert', ['type' => 'error', 'message' => str_replace(',',' ',implode(', ', $msg))]);
         }
 
-        // if(Gender::create(['description' => $request->description, 'created_by' => Auth::user()->id]))
-        // {
-        //     return back()->with('alert',['type' => 'success', 'message' => 'Successfully Added.']);
-        // }
-        // return back()->with('error',['type' => 'error', 'message' => 'Something went wrong.']);
+
     }
 }

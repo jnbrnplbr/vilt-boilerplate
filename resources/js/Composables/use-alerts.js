@@ -11,6 +11,12 @@ export default function useAlerts() {
   
     const addAlert = (alert) => {
         const id = uuidv4();
+        // for(const a in alert){
+        //     alerts.value.push({
+        //         id: id,
+        //         ...a
+        //     });
+        // }   
         alerts.value.push({
             id: id,
             ...alert
