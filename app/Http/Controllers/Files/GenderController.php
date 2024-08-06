@@ -21,7 +21,7 @@ class GenderController extends Controller
                                 return [
                                     'id'                => $d->id,
                                     'description'       => $d->description,
-                                    'created_by'        => $d->created_by,
+                                    'created_by'        => $d->createdBy->first_name.' '.$d->createdBy->last_name,
                                     'can'   => [
                                         'show' => [
                                             'visible'   => true,
