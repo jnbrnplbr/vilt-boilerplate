@@ -58,7 +58,7 @@ const is = computed(() => {
   }
 
   if (props.href) {
-    return "a";
+    return Link;
   }
 
   return "button";

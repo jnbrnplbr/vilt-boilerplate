@@ -1,6 +1,8 @@
 <script setup>
 import {
-  mdiChartTimelineVariant,
+  mdiChartTimelineVariant, 
+mdiFileRefresh, 
+mdiTruckRemove
 } from "@mdi/js";
 import LayoutAuthenticated from "@/Layouts/LayoutAuthenticated.vue";
 import SectionTitleLineWithButton from "@/Components/SectionTitleLineWithButton.vue";
@@ -12,11 +14,15 @@ import FormField from "@/Components/FormField.vue";
 import FormControl from "@/Components/FormControl.vue";
 import BaseDivider from "@/Components/BaseDivider.vue";
 
-
-
+const props = defineProps({
+    gender: {
+        type: Object,
+        default: []
+    }
+})
 
 const form = useForm({
-    description: ''
+    description: props.gender.description
 });
 
 
@@ -25,10 +31,8 @@ const submit = () => {
     .transform(data => ({
       ... data
     }))
-    .post(route('genders:store'), {
+    .put(route('genders:update', props.gender.id), {
         preserveScroll: true,
-        onError: () => form.reset('description'),
-        onSuccess: () => form.reset(),
     })
 };
 
@@ -40,7 +44,7 @@ const submit = () => {
     <SectionMain>
         <SectionTitleLineWithButton
             :icon="mdiChartTimelineVariant"
-            title="Create Gender"
+            :title="`Edit ${gender.description}`"
             main
             :back="{visible:true, route: 'genders:index'}"
         >
@@ -52,7 +56,7 @@ const submit = () => {
                     >
                         Gender Lists
                     </Link>
-                    > Create Gender
+                    > Edit {{ gender.description }}
                 </span>
             </template>
         </SectionTitleLineWithButton>
@@ -67,7 +71,7 @@ const submit = () => {
                         <FormField
                             label="Gender Description"
                             label-for="description"
-                            :help="'Please enter your gender' || form.errors?.description"
+                            :help="'Please enter the updated gender here' || form.errors?.description"
                             :error="form.errors?.description"
                         >
                             <FormControl
@@ -76,7 +80,6 @@ const submit = () => {
                                 autocomplete="description"
                                 type="text"
                                 required
-                                
                             />
                         </FormField>
                     </div>
@@ -89,8 +92,8 @@ const submit = () => {
             <BaseButton
                 @click="submit"
                 type="submit"
-                color="success"
-                label="Submit"
+                color="info"
+                label="Update"
                 :class="{ 'opacity-25': form.processing }"
                 :disabled="form.processing"
             />

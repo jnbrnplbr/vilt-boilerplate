@@ -6,6 +6,7 @@ import BaseButtons from "@/Components/BaseButtons.vue";
 import CardBox from "@/Components/CardBox.vue";
 import OverlayLayer from "@/Components/OverlayLayer.vue";
 import CardBoxComponentTitle from "@/Components/CardBoxComponentTitle.vue";
+import { router } from "@inertiajs/vue3";
 
 const props = defineProps({
   title: {
@@ -27,7 +28,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["update:modelValue", "cancel", "confirm"]);
+const emit = defineEmits(["update:modelValue", "cancel", "confirm", "click:delete"]);
 
 const value = computed({
   get: () => props.modelValue,
@@ -48,6 +49,11 @@ window.addEventListener("keydown", (e) => {
     cancel();
   }
 });
+
+
+const clicked = (action) => {
+    emit(`click:${action}`)
+};
 </script>
 
 <template>
@@ -74,7 +80,18 @@ window.addEventListener("keydown", (e) => {
 
       <template #footer>
         <BaseButtons>
-          <BaseButton :label="buttonLabel" :color="button" @click="confirm" />
+          <!-- <BaseButton 
+            :label="buttonLabel" 
+            :color="button" 
+            @click="confirm" 
+          /> -->
+          <BaseButton 
+            
+            :label="buttonLabel" 
+            :color="button" 
+            @click="clicked('delete')" 
+          />
+
           <BaseButton
             v-if="hasCancel"
             label="Cancel"

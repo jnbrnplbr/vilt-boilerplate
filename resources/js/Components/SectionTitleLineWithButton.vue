@@ -57,14 +57,16 @@ const showFilter = ref(false);
           
           <div class="">
             <slot name="links"/><br>
-            <h1 :class="main ? 'text-3xl' : 'text-2xl'" class="leading-tight text-sky-900 dark:text-sky-200 font-bold">
+            <h1 
+              :class="main ? 'text-3xl' : 'text-2xl'" class="leading-tight text-sky-900 dark:text-sky-200 font-bold"
+            >
               {{ title }}
             </h1>
           </div>
           <div>
             <Link
               v-if="add.visible" 
-              class="rounded-sm bg-sky-600 dark:bg-sky-600 text-white hover:bg-sky-500 hover:border-sky-500 hover:dark:bg-sky-500 hover:dark:border-sky-600 py-2 px-6 text-sm" 
+              class="rounded-sm bg-emerald-600 dark:bg-emerald-600 text-white hover:bg-emerald-500 hover:border-emerald-500 hover:dark:bg-emerald-500 hover:dark:border-emerald-600 py-2 px-6 text-sm" 
               :href="route(add.route)"
             >
                 <span>Add New</span>

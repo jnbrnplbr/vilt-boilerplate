@@ -1,6 +1,17 @@
 
 
 
+
+## Branding
+
+### Actions
+
+Create/Add - Green
+Update/Edit - Blue
+Read/View - Gray/Neutral
+Delete/Remove - Red
+
+
 ## 1 August 2024 Update
 1. Added new library ``uuid``. Run ``npm install``.
 
