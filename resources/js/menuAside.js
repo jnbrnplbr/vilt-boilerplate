@@ -84,6 +84,7 @@ export default [
         label: "Genders",
       },
       {
+        route: "blood_types:index",
         label: "Blood Types",
       },
       {
@@ -104,6 +105,7 @@ export default [
         label: "Menu",
       },
       {
+        route: "roles:index",
         label: "Roles",
       },
       {

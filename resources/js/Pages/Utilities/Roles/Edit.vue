@@ -15,14 +15,16 @@ import FormControl from "@/Components/FormControl.vue";
 import BaseDivider from "@/Components/BaseDivider.vue";
 
 const props = defineProps({
-    gender: {
+    role: {
         type: Object,
         default: []
     }
 })
 
 const form = useForm({
-    description: props.gender.description
+    name: props.role.name,
+    code: props.role.code,
+    description: props.role.description,
 });
 
 
@@ -31,7 +33,7 @@ const submit = () => {
     .transform(data => ({
       ... data
     }))
-    .put(route('genders:update', props.gender.id), {
+    .put(route('roles:update', props.role.id), {
         preserveScroll: true,
     })
 };
@@ -40,23 +42,23 @@ const submit = () => {
 
 <template>
     <LayoutAuthenticated>
-    <Head :title="`File Maintenance: Edit - ${gender.description}`" />
+    <Head :title="`File Maintenance: Edit - ${role.name}`" />
     <SectionMain>
         <SectionTitleLineWithButton
             :icon="mdiChartTimelineVariant"
-            :title="`Edit ${gender.description}`"
+            :title="`Edit ${role.name}`"
             main
-            :back="{visible:true, route: 'genders:index'}"
+            :back="{visible:true, route: 'roles:index'}"
         >
             <template #links>
-                <span class="text-xs muted">File Maintenance > 
+                <span class="text-xs muted">Utilities > 
                     <Link 
                         class="font-semibold text-sky-900"
-                        :href="route('genders:index')"
+                        :href="route('roles:index')"
                     >
-                        Gender Lists
+                        Blood Type Lists
                     </Link>
-                    > Edit {{ gender.description }}
+                    > Edit {{ role.description }}
                 </span>
             </template>
         </SectionTitleLineWithButton>
@@ -69,16 +71,44 @@ const submit = () => {
                 <div>
                     <div>
                         <FormField
-                            label="Gender Description"
+                            label="Name"
+                            label-for="name"
+                            :help="'Please enter role name' || form.errors?.name"
+                            :error="form.errors?.name"
+                        >
+                            <FormControl
+                                v-model="form.name"
+                                id="code"
+                                autocomplete="name"
+                                type="text"
+                                required
+                            />
+                        </FormField>
+                        <FormField
+                            label="Code"
+                            label-for="code"
+                            :help="'Please enter Role Code' || form.errors?.code"
+                            :error="form.errors?.code"
+                        >
+                            <FormControl
+                                v-model="form.code"
+                                id="code"
+                                autocomplete="code"
+                                type="text"
+                                required
+                            />
+                        </FormField>
+                        <FormField
+                            label="Role Description"
                             label-for="description"
-                            :help="'Please enter the updated gender here' || form.errors?.description"
+                            :help="'Please enter the role description' || form.errors?.description"
                             :error="form.errors?.description"
                         >
                             <FormControl
                                 v-model="form.description"
                                 id="description"
                                 autocomplete="description"
-                                type="text"
+                                type="textarea"
                                 required
                             />
                         </FormField>

@@ -58,6 +58,7 @@ Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'files'], function () {
         require __DIR__.'/files/users.php';
         require __DIR__.'/files/genders.php';
+        require __DIR__.'/files/blood_types.php';
     });
                       
     Route::group(['prefix' => 'utilities'], function () {

@@ -40,6 +40,10 @@ class DatabaseSeeder extends Seeder
             'created_by'    => 1
         ]);
 
-        $this->call([GenderSeeder::class,]);
+        $this->call([
+            GenderSeeder::class,
+            BloodTypeSeeder::class,
+            RoleSeeder::class
+        ]);
     }
 }

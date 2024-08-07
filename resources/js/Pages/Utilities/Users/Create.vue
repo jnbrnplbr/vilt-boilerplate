@@ -15,30 +15,12 @@ import CardBox from "../../../Components/CardBox.vue";
 import FormField from "@/Components/FormField.vue";
 import FormControl from "@/Components/FormControl.vue";
 import BaseDivider from "@/Components/BaseDivider.vue";
-const genderOptions = [
-  { id: 1, label: 'I prefer not to tell' },
-  { id: 2, label: 'Male' },
-  { id: 3, label: 'Female' }
-];
 
-const bloodTypeOptions = [
-  { id: 1, label: 'A positive (A+)' },
-  { id: 2, label: 'A negative (A-)' },
-  { id: 3, label: 'B positive (B+)' },
-  { id: 4, label: 'B negative (B-)' },
-  { id: 5, label: 'AB positive (AB+)' },
-  { id: 6, label: 'AB negative (AB-)' },
-  { id: 7, label: 'O positive (O+)' },
-  { id: 8, label: 'O negative (O-)' },
-];
-
-const roles = [
-  { id: 1, label: 'Doctor' },
-  { id: 2, label: 'Patient' },
-  { id: 3, label: 'Assistant' },
-  { id: 4, label: 'Standard' },
-  { id: 5, label: 'Administrator' }
-];
+const props = defineProps({
+    roles: Object,
+    blood_types: Object,
+    genders: Object
+})
 
 const form = useForm({
     prefix: '',
@@ -55,6 +37,19 @@ const form = useForm({
     contact: '',
     role: [],
 });
+
+
+const submit = () => {
+  form
+    .transform(data => ({
+      ... data
+    }))
+    .post(route('users:store'), {
+        preserveScroll: true,
+        onError: () => form.reset(),
+        onSuccess: () => form.reset(),
+    })
+};
 
 </script>
 
@@ -81,8 +76,7 @@ const form = useForm({
             </template>
         </SectionTitleLineWithButton>
         <CardBox class="mb-6">
-            <label class="block font-bold mb-2">Personal Information</label>
-            <div class="grid grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-1">
                 <div>
                     <div>
                         <FormField
@@ -155,30 +149,32 @@ const form = useForm({
                             />
                         </FormField>
                     </div> 
-                    <div class="grid grid-cols-2 gap-1">
                         <FormField
                             label="Gender"
                             label-for="gender"
                             help="can be blank"
                         >
-                            <FormControl v-model="form.gender" :options="genderOptions" />
+                            <FormControl v-model="form.gender" :options="genders" />
+                        </FormField>
+                    <div class="grid grid-cols-2 gap-1">
+                        
+                        <FormField
+                            label="Blood Type"
+                            label-for="blood tpye"
+                            help="Leave it blank if not sure"
+                        >
+                            <FormControl :icon="mdiBloodBag" v-model="form.blood_type" :options="blood_types" />
                         </FormField>
                         <FormField
                             label="Birthday"
                             label-for="birthday"
                             help="can be blank"
                         >
-                            <FormControl type="date" v-model="form.gender" />
+                            <FormControl type="date" v-model="form.birthday" />
                         </FormField>
                     </div>
                     
-                    <FormField
-                        label="Blood Type"
-                        label-for="blood tpye"
-                        help="Leave it blank if not sure"
-                    >
-                        <FormControl :icon="mdiBloodBag" v-model="form.blood_type" :options="bloodTypeOptions" />
-                    </FormField>
+                    
 
                 </div>
                 <div>
@@ -221,62 +217,11 @@ const form = useForm({
                     </div>
                 </div>
             </div>
-            
-            
-            <!-- <FormField
-                label="Email"
-                label-for="email"
-                help="Please enter your email"
-            >
-                <FormControl
-                    v-model="form.email"
-                    id="email"
-                    :icon="mdiEmail"
-                    autocomplete="email"
-                    type="email"
-                    required
-                />
-            </FormField>
 
-            <FormField
-                label="Password"
-                label-for="password"
-                help="Please enter new password"
-            >
-            <FormControl
-                v-model="form.password"
-                id="password"
-                :icon="mdiFormTextboxPassword"
-                type="password"
-                autocomplete="new-password"
-                required
-            />
-            </FormField>
-            <FormField
-                label="Confirm Password"
-                label-for="password_confirmation"
-                help="Please confirm your password"
-            >
-            <FormControl
-                v-model="form.password_confirmation"
-                id="password_confirmation"
-                :icon="mdiFormTextboxPassword"
-                type="password"
-                autocomplete="new-password"
-                required
-            />
-            </FormField>
-
-            <FormCheckRadioGroup
-                v-if="hasTermsAndPrivacyPolicyFeature"
-                v-model="form.terms"
-                name="remember"
-                :options="{ agree: 'I agree to the Terms' }"
-            /> -->
             <BaseDivider />
             <BaseButton
                 type="submit"
-                color="info"
+                color="success"
                 label="Register"
                 :class="{ 'opacity-25': form.processing }"
                 :disabled="form.processing"

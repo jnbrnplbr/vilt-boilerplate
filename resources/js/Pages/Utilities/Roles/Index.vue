@@ -11,35 +11,45 @@ import BaseButton from "../../../Components/BaseButton.vue";
 import { Head, Link} from '@inertiajs/vue3';
 import CardBox from "../../../Components/CardBox.vue";
 import TableSampleClients from "@/Components/TableSampleClients.vue";
+import BaseTable from "@/Components/BaseTable.vue";
+import { roles as tableSetting } from "@/Constants/table-files";
 
+const props = defineProps({
+    roles: Object
+});
 
 </script>
 
 <template>
     <LayoutAuthenticated>
-    <Head title="Utilities: Users List" />
+    <Head title="Files : Role List" />
     <SectionMain>
         <SectionTitleLineWithButton
             :icon="mdiChartTimelineVariant"
-            title="Users"
+            title="Roles"
             main
-            :add="{visible: true, route: 'users:create'}"
-            
+            :add="{visible:true, route: 'roles:create'}"
         >
             <template #links>
                 <span class="text-xs muted">Utilities > 
                     <Link 
                         class="font-semibold text-sky-900"
-                        :href="route('users:index')"
+                        :href="route('roles:index')"
                     >
-                        Users
-                    </Link>
+                        Role Lists
+                    </Link> 
                 </span>
             </template>
         </SectionTitleLineWithButton>
         <CardBox class="mb-6" has-table>
-            <TableSampleClients />
+            <BaseTable 
+                :items="roles"
+                :settings="tableSetting"
+                :checkable="{visible: true, props: 'description'}"
+            >
+            </BaseTable>
         </CardBox>
     </SectionMain>
   </LayoutAuthenticated>
+
 </template>

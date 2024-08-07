@@ -1,8 +1,6 @@
 <script setup>
 import {
-  mdiChartTimelineVariant, 
-mdiFileRefresh, 
-mdiTruckRemove
+  mdiChartTimelineVariant,
 } from "@mdi/js";
 import LayoutAuthenticated from "@/Layouts/LayoutAuthenticated.vue";
 import SectionTitleLineWithButton from "@/Components/SectionTitleLineWithButton.vue";
@@ -14,49 +12,43 @@ import FormField from "@/Components/FormField.vue";
 import FormControl from "@/Components/FormControl.vue";
 import BaseDivider from "@/Components/BaseDivider.vue";
 
-const props = defineProps({
-    gender: {
-        type: Object,
-        default: []
-    }
-})
-
 const form = useForm({
-    description: props.gender.description
+    description: '',
+    slug: '',
 });
-
 
 const submit = () => {
   form
     .transform(data => ({
       ... data
     }))
-    .put(route('genders:update', props.gender.id), {
+    .post(route('blood_types:store'), {
         preserveScroll: true,
+        onError: () => form.reset(),
+        onSuccess: () => form.reset(),
     })
 };
-
 </script>
 
 <template>
     <LayoutAuthenticated>
-    <Head :title="`File Maintenance: Edit - ${gender.description}`" />
+    <Head title="File Maintenance: Create Blood Type" />
     <SectionMain>
         <SectionTitleLineWithButton
             :icon="mdiChartTimelineVariant"
-            :title="`Edit ${gender.description}`"
+            title="Create Blood Type"
             main
-            :back="{visible:true, route: 'genders:index'}"
+            :back="{visible:true, route: 'blood_types:index'}"
         >
             <template #links>
                 <span class="text-xs muted">File Maintenance > 
                     <Link 
                         class="font-semibold text-sky-900"
-                        :href="route('genders:index')"
+                        :href="route('blood_types:index')"
                     >
-                        Gender Lists
+                        Blood Type Lists
                     </Link>
-                    > Edit {{ gender.description }}
+                    > Create Blood type
                 </span>
             </template>
         </SectionTitleLineWithButton>
@@ -69,15 +61,30 @@ const submit = () => {
                 <div>
                     <div>
                         <FormField
-                            label="Gender Description"
+                            label="Blood Type Description"
                             label-for="description"
-                            :help="'Please enter the updated gender here' || form.errors?.description"
+                            :help="'Please enter the blood type description' || form.errors?.description"
                             :error="form.errors?.description"
                         >
                             <FormControl
                                 v-model="form.description"
                                 id="description"
                                 autocomplete="description"
+                                type="text"
+                                required
+                                
+                            />
+                        </FormField>
+                        <FormField
+                            label="Slug"
+                            label-for="slug"
+                            :help="'Please enter gender slug'' || form.errors?.slug"
+                            :error="form.errors?.slug"
+                        >
+                            <FormControl
+                                v-model="form.slug"
+                                id="slug"
+                                autocomplete="slug"
                                 type="text"
                                 required
                             />
@@ -92,8 +99,8 @@ const submit = () => {
             <BaseButton
                 @click="submit"
                 type="submit"
-                color="info"
-                label="Update"
+                color="success"
+                label="Submit"
                 :class="{ 'opacity-25': form.processing }"
                 :disabled="form.processing"
             />

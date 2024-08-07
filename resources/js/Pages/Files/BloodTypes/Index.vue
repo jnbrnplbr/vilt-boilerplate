@@ -11,35 +11,45 @@ import BaseButton from "../../../Components/BaseButton.vue";
 import { Head, Link} from '@inertiajs/vue3';
 import CardBox from "../../../Components/CardBox.vue";
 import TableSampleClients from "@/Components/TableSampleClients.vue";
+import BaseTable from "@/Components/BaseTable.vue";
+import { blood_types as tableSetting } from "@/Constants/table-files";
 
+const props = defineProps({
+    blood_types: Object
+});
 
 </script>
 
 <template>
     <LayoutAuthenticated>
-    <Head title="Utilities: Users List" />
+    <Head title="Files : Gender List" />
     <SectionMain>
         <SectionTitleLineWithButton
             :icon="mdiChartTimelineVariant"
-            title="Users"
+            title="Blood Types"
             main
-            :add="{visible: true, route: 'users:create'}"
-            
+            :add="{visible:true, route: 'blood_types:create'}"
         >
             <template #links>
-                <span class="text-xs muted">Utilities > 
+                <span class="text-xs muted">File Maintenance > 
                     <Link 
                         class="font-semibold text-sky-900"
-                        :href="route('users:index')"
+                        :href="route('blood_types:index')"
                     >
-                        Users
-                    </Link>
+                        Blood Types
+                    </Link> 
                 </span>
             </template>
         </SectionTitleLineWithButton>
         <CardBox class="mb-6" has-table>
-            <TableSampleClients />
+            <BaseTable 
+                :items="blood_types"
+                :settings="tableSetting"
+                :checkable="{visible: true, props: 'description'}"
+            >
+            </BaseTable>
         </CardBox>
     </SectionMain>
   </LayoutAuthenticated>
+
 </template>

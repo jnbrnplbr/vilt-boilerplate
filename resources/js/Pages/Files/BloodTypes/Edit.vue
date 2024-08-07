@@ -15,14 +15,15 @@ import FormControl from "@/Components/FormControl.vue";
 import BaseDivider from "@/Components/BaseDivider.vue";
 
 const props = defineProps({
-    gender: {
+    blood_type: {
         type: Object,
         default: []
     }
 })
 
 const form = useForm({
-    description: props.gender.description
+    description: props.blood_type.description,
+    slug: props.blood_type.slug
 });
 
 
@@ -31,7 +32,7 @@ const submit = () => {
     .transform(data => ({
       ... data
     }))
-    .put(route('genders:update', props.gender.id), {
+    .put(route('blood_types:update', props.blood_type.id), {
         preserveScroll: true,
     })
 };
@@ -40,23 +41,23 @@ const submit = () => {
 
 <template>
     <LayoutAuthenticated>
-    <Head :title="`File Maintenance: Edit - ${gender.description}`" />
+    <Head :title="`File Maintenance: Edit - ${blood_type.description}`" />
     <SectionMain>
         <SectionTitleLineWithButton
             :icon="mdiChartTimelineVariant"
-            :title="`Edit ${gender.description}`"
+            :title="`Edit ${blood_type.description}`"
             main
-            :back="{visible:true, route: 'genders:index'}"
+            :back="{visible:true, route: 'blood_types:index'}"
         >
             <template #links>
                 <span class="text-xs muted">File Maintenance > 
                     <Link 
                         class="font-semibold text-sky-900"
-                        :href="route('genders:index')"
+                        :href="route('blood_types:index')"
                     >
-                        Gender Lists
+                        Blood Type Lists
                     </Link>
-                    > Edit {{ gender.description }}
+                    > Edit {{ blood_type.description }}
                 </span>
             </template>
         </SectionTitleLineWithButton>
@@ -69,15 +70,29 @@ const submit = () => {
                 <div>
                     <div>
                         <FormField
-                            label="Gender Description"
+                            label="blood_type Description"
                             label-for="description"
-                            :help="'Please enter the updated gender here' || form.errors?.description"
+                            :help="'Please enter the updated blood_type here' || form.errors?.description"
                             :error="form.errors?.description"
                         >
                             <FormControl
                                 v-model="form.description"
                                 id="description"
                                 autocomplete="description"
+                                type="text"
+                                required
+                            />
+                        </FormField>
+                        <FormField
+                            label="Slug"
+                            label-for="slug"
+                            :help="'Please enter your gender' || form.errors?.slug"
+                            :error="form.errors?.slug"
+                        >
+                            <FormControl
+                                v-model="form.slug"
+                                id="slug"
+                                autocomplete="slug"
                                 type="text"
                                 required
                             />

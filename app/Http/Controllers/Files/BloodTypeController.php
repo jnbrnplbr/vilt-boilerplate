@@ -3,37 +3,39 @@
 namespace App\Http\Controllers\Files;
 
 use App\Http\Controllers\Controller;
-use App\Models\Files\Gender;
+use App\Models\Files\BloodType;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 
-class GenderController extends Controller
+class BloodTypeController extends Controller
 {
     public function index ()
     {
-        return Inertia::render('Files/Genders/Index',[
-            'genders' => Gender::orderBy('description')
+        return Inertia::render('Files/BloodTypes/Index',[
+            'blood_types' => BloodType::orderBy('description')
                             ->get()
                             ->transform(function ($d) {
                                 return [
                                     'id'                => $d->id,
                                     'description'       => $d->description,
+                                    'slug'              => $d->slug,
                                     'created_by'        => $d->createdBy->first_name.' '.$d->createdBy->last_name,
                                     'can'   => [
                                         'show' => [
                                             'visible'   => true,
-                                            'route'     => route('genders:show',$d->id)
+                                            'route'     => route('blood_types:show',$d->id)
                                         ],
                                         'edit' => [
                                             'visible'   => true,
-                                            'route'     => route('genders:edit',$d->id)
+                                            'route'     => route('blood_types:edit',$d->id)
                                         ],
                                         'delete'            => [
                                             'visible'   => true,
-                                            'route'     => route('genders:destroy', $d->id)
+                                            'route'     => route('blood_types:destroy', $d->id)
                                         ]
                                     ],
                                 ];
@@ -41,9 +43,9 @@ class GenderController extends Controller
         ]);
     }
 
-    public function create ()   
+    public function create ()
     {
-        return Inertia::render('Files/Genders/Create');
+        return Inertia::render('Files/BloodTypes/Create');
     }
 
     public function store (Request $request)
@@ -53,7 +55,7 @@ class GenderController extends Controller
 
             $validated['created_by'] = Auth::user()->id;
 
-            if(Gender::create($validated))
+            if(BloodType::create($validated))
             {
                 return back()->with('alert', ['type' => 'success', 'message' => 'Successfully Added.']);
             }
@@ -65,35 +67,40 @@ class GenderController extends Controller
         }
     }
 
-    public function show (Gender $gender)
+    public function show (BloodType $blood_type)
     {
-        return Inertia::render('Files/Genders/Show',[
-            'gender' => [
-                'id'            => $gender->id,
-                'description'   => $gender->description,
-                'created_by'    => $gender->created_by,
-                'created_at'    => $gender->created_at,
-                'updated_at'    => $gender->updated_at
+        return Inertia::render('Files/BloodTypes/Show',[
+            'blood_type' => [
+                'id'            => $blood_type->id,
+                'description'   => $blood_type->description,
+                'slug'          => $blood_type->slug,
+                'created_by'    => $blood_type->created_by,
+                'created_at'    => $blood_type->created_at,
+                'updated_at'    => $blood_type->updated_at
             ]
         ]);
     }
 
-    public function edit (Gender $gender)
+    public function edit (BloodType $blood_type)
     {
-        return Inertia::render('Files/Genders/Edit',[
-            'gender' => [
-                'id'            => $gender->id,
-                'description'   => $gender->description,
+        return Inertia::render('Files/BloodTypes/Edit',[
+            'blood_type' => [
+                'id'            => $blood_type->id,
+                'description'   => $blood_type->description,
+                'slug'          => $blood_type->slug,
             ]
         ]);
     }
 
-    public function update (Gender $gender, Request $request)
+    public function update (Request $request, BloodType $blood_type)
     {
         try{
-            $validated = $this->validate($request, $this->rules());
+            $validated = $this->validate($request, [
+                'description' => 'required',
+                'slug'        => ['required', 'unique:blood_types,slug,'.$blood_type->id.',id']
+            ]);
 
-            if($gender->update($validated) && $gender->touch())
+            if($blood_type->update($validated) && $blood_type->touch())
             {
                 return back()->with('alert', ['type' => 'success', 'message' => 'Successfully Updated.']);
             }
@@ -105,11 +112,11 @@ class GenderController extends Controller
         }
     }
 
-    public function destroy (Gender $gender)
+    public function destroy (BloodType $blood_type)
     {
-        if($gender->delete())
+        if($blood_type->delete())
         {
-            return redirect(route('genders:index'))->with('alert', ['type' => 'success', 'message' => 'Successfully Deleted.']);
+            return redirect(route('blood_types:index'))->with('alert', ['type' => 'success', 'message' => 'Successfully Deleted.']);
         }
 
         return back()->with('alert', ['type'=>'error', 'message'=>'An error occured.']);
@@ -118,8 +125,10 @@ class GenderController extends Controller
     public function rules ()
     {
         return [
-            'description' => 'required'
+            'description' => 'required',
+            'slug'        => ['required', 'unique:blood_types']
         ];
     }
-
 }
+
+
