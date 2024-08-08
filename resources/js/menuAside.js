@@ -65,35 +65,43 @@ export default [
     label: "File Maintenance",
     icon: mdiViewList,
     menu: [
+      // {
+      //   label: "Company",
+      //   menu: [
+      //     {
+      //       label: "Companies"
+      //     },
+      //     {
+      //       label: "Branches",
+      //     },
+      //     {
+      //       label: "Departments"
+      //     }
+      //   ]
+      // },
       {
-        label: "Company",
-        menu: [
-          {
-            label: "Companies"
-          },
-          {
-            label: "Branches",
-          },
-          {
-            label: "Departments"
-          }
-        ]
+        route: "blood_types:index",
+        label: "Blood Types",
       },
       {
         route: "genders:index",
         label: "Genders",
       },
       {
-        route: "blood_types:index",
-        label: "Blood Types",
-      },
-      {
-        route: "users:doctors",
-        label: "Doctors",
-      },
-      {
-        route: "users:patients",
-        label: "Patients"
+        label: "Users",
+        menu: [
+          {
+            label: "Assistants",
+          },
+          {
+            route: "users:doctors",
+            label: "Doctors",
+          },
+          {
+            route: "users:patients",
+            label: "Patients"
+          },
+        ]
       }
     ],
   },

@@ -11,8 +11,12 @@ import BaseButton from "../../../Components/BaseButton.vue";
 import { Head, Link} from '@inertiajs/vue3';
 import CardBox from "../../../Components/CardBox.vue";
 import TableSampleClients from "@/Components/TableSampleClients.vue";
+import BaseTable from "@/Components/BaseTable.vue";
+import { users as tableSetting } from "@/Constants/table-utilities";
 
-
+const props = defineProps({
+    users: Object
+})
 </script>
 
 <template>
@@ -38,7 +42,13 @@ import TableSampleClients from "@/Components/TableSampleClients.vue";
             </template>
         </SectionTitleLineWithButton>
         <CardBox class="mb-6" has-table>
-            <TableSampleClients />
+            <BaseTable 
+                :items="users"
+                :settings="tableSetting"
+                :checkable="{visible: true, props: 'name'}"
+            >
+            </BaseTable>
+            <!-- <TableSampleClients /> -->
         </CardBox>
     </SectionMain>
   </LayoutAuthenticated>

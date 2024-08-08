@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
+
 
 class RegisteredUserController extends Controller
 {
@@ -34,6 +36,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        
         $request->validate([
             'first_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',

@@ -1,49 +1,49 @@
 <script setup>
 import {
   mdiChartTimelineVariant, 
-  mdiAccount,
-  mdiEmail,
-  mdiPhone,
-  mdiBloodBag
 } from "@mdi/js";
 import LayoutAuthenticated from "@/Layouts/LayoutAuthenticated.vue";
 import SectionTitleLineWithButton from "@/Components/SectionTitleLineWithButton.vue";
 import SectionMain from "@/Components/SectionMain.vue";
 import BaseButton from "../../../Components/BaseButton.vue";
-import { useForm, Head, Link} from '@inertiajs/vue3';
+import { useForm, Head, Link, router,usePage } from '@inertiajs/vue3';
 import CardBox from "../../../Components/CardBox.vue";
 import FormField from "@/Components/FormField.vue";
 import FormControl from "@/Components/FormControl.vue";
 import BaseDivider from "@/Components/BaseDivider.vue";
+import FormCheckRadioGroup from "@/Components/FormCheckRadioGroup.vue";
 
 const props = defineProps({
-    roles: Object,
+    genders: Object,
     blood_types: Object,
-    genders: Object
-})
-
-const form = useForm({
-    prefix: '',
-    suffix: '',
-    first_name: '',
-    middle_name: '',
-    last_name: '',
-    email: '',
-    terms: [],
-    gender: [],
-    blood_type: [],
-    contact: '',
-    role: [],
-    birthday: '',
+    roles: Object,
+    user: {
+        type: Object,
+        default: []
+    }
 });
 
+const form = useForm({
+    prefix: props.user.prefix,
+    suffix: props.user.suffix,
+    first_name: props.user.first_name,
+    middle_name: props.user.middle_name,
+    last_name: props.user.last_name,
+    email: props.user.email,
+    gender: props.user.gender,
+    blood_type: props.user.blood_type,
+    contact: props.user.contact,
+    role: props.user.role,
+    birthday: props.user.birthday,
+    active: props.user.active
+});
 
 const submit = () => {
   form
     .transform(data => ({
       ... data
     }))
-    .post(route('users:store'), {
+    .put(route('users:update', props.user.id), {
         preserveScroll: true,
     })
 };
@@ -52,11 +52,11 @@ const submit = () => {
 
 <template>
     <LayoutAuthenticated>
-    <Head title="Utilities: Users List" />
+    <Head :title="`Utilities: Edit - ${user.name}`" />
     <SectionMain>
         <SectionTitleLineWithButton
             :icon="mdiChartTimelineVariant"
-            title="Create User"
+            :title="`Edit : ${user.name}`"
             main
             :back="{visible:true, route: 'users:index'}"
         >
@@ -66,9 +66,9 @@ const submit = () => {
                         class="font-semibold text-sky-900"
                         :href="route('users:index')"
                     >
-                        User Lists
+                        Users
                     </Link>
-                    > Create User
+                    > Edit {{ user.description }}
                 </span>
             </template>
         </SectionTitleLineWithButton>
@@ -77,6 +77,19 @@ const submit = () => {
             is-form 
             @submit.prevent="submit"
         >
+            <div class="flex justify-end my-5">
+                <FormField
+                    label="Account Status"
+                >
+                    <FormCheckRadioGroup
+                        v-model="form.active"
+                        name="active"
+                        type="switch"
+                        :options="{ one: form.active ? 'Enabled' : 'Disabled'}"
+                    />
+                </FormField>
+               
+            </div>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-1">
                 <div>
                     <div>
@@ -179,7 +192,7 @@ const submit = () => {
                         label-for="role"
                         help="Make should to select approriately"
                     >
-                        <FormControl v-model="form.role" :options="roles" />
+                        <FormControl v-model="form.role" :options="props.roles" />
                     </FormField>
                     <div>
                         <FormField
@@ -213,12 +226,13 @@ const submit = () => {
                     </div>
                 </div>
             </div>
-
+            
             <BaseDivider />
             <BaseButton
+                @click="submit"
                 type="submit"
-                color="success"
-                label="Register"
+                color="info"
+                label="Update"
                 :class="{ 'opacity-25': form.processing }"
                 :disabled="form.processing"
             />

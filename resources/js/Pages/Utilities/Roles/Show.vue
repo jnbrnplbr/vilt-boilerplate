@@ -21,7 +21,7 @@ const props = defineProps({
 
 <template>
     <LayoutAuthenticated>
-    <Head :title="`File Maintenance: ${role.description}`" />
+    <Head :title="`Utilities: ${role.description}`" />
     <SectionMain>
         <SectionTitleLineWithButton
             :icon="mdiChartTimelineVariant"

@@ -7,10 +7,8 @@ import {
 import LayoutAuthenticated from "@/Layouts/LayoutAuthenticated.vue";
 import SectionTitleLineWithButton from "@/Components/SectionTitleLineWithButton.vue";
 import SectionMain from "@/Components/SectionMain.vue";
-import BaseButton from "../../../Components/BaseButton.vue";
 import { Head, Link} from '@inertiajs/vue3';
 import CardBox from "../../../Components/CardBox.vue";
-import TableSampleClients from "@/Components/TableSampleClients.vue";
 import BaseTable from "@/Components/BaseTable.vue";
 import { roles as tableSetting } from "@/Constants/table-files";
 
@@ -22,7 +20,7 @@ const props = defineProps({
 
 <template>
     <LayoutAuthenticated>
-    <Head title="Files : Role List" />
+    <Head title="Utilities: Role List" />
     <SectionMain>
         <SectionTitleLineWithButton
             :icon="mdiChartTimelineVariant"

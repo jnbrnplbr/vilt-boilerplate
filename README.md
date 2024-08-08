@@ -2,6 +2,11 @@
 
 
 
+## Validation
+- Alphabet only ``|regex:/^[a-zA-Z]+$/u``
+- Alphabet and numbers only (No Special Characters)``regex:/^[a-zA-Z0-9]+$/u``
+
+
 ## Branding
 
 ### Actions

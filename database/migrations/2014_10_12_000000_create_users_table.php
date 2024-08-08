@@ -29,7 +29,9 @@ return new class extends Migration
             $table->integer('gender_id')->nullable();
             $table->integer('role_id');
             $table->integer('created_by');
-
+            $table->boolean('is_active')->nullable()->default(1);
+            $table->longText('address')->nullable();
+            
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();

@@ -33,7 +33,7 @@ const submit = () => {
 
 <template>
     <LayoutAuthenticated>
-    <Head title="File Maintenance: Create Role" />
+    <Head title="Utilities: Create Role" />
     <SectionMain>
         <SectionTitleLineWithButton
             :icon="mdiChartTimelineVariant"

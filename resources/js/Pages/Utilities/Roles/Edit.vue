@@ -15,6 +15,7 @@ import FormControl from "@/Components/FormControl.vue";
 import BaseDivider from "@/Components/BaseDivider.vue";
 
 const props = defineProps({
+
     role: {
         type: Object,
         default: []
@@ -42,7 +43,7 @@ const submit = () => {
 
 <template>
     <LayoutAuthenticated>
-    <Head :title="`File Maintenance: Edit - ${role.name}`" />
+    <Head :title="`Utilities: Edit - ${role.name}`" />
     <SectionMain>
         <SectionTitleLineWithButton
             :icon="mdiChartTimelineVariant"
@@ -56,7 +57,7 @@ const submit = () => {
                         class="font-semibold text-sky-900"
                         :href="route('roles:index')"
                     >
-                        Blood Type Lists
+                        Role Lists
                     </Link>
                     > Edit {{ role.description }}
                 </span>

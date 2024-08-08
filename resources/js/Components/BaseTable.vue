@@ -143,7 +143,7 @@ const destroy = () => {
   <table>
     <thead>
       <tr>
-        <th v-if="props.checkable" />
+        <th v-if="checkable.visible" />
           <th 
             v-for="head in props.settings"
             v-html="head.label"
@@ -158,14 +158,14 @@ const destroy = () => {
           @checked="checked($event, item)"
         />
         <td 
-          :colspan="checkable.visible? 1 : 2"
+          
           v-for="(data,d) in props.settings"
           :key="d"
           :data-label="data.label"
           v-html="item[data.prop]"
         >
         </td>
-        <td class="before:hidden lg:w-1 whitespace-nowrap">
+        <td class="before:hidden whitespace-nowrap">
           <BaseButtons type="justify-start lg:justify-end" no-wrap>
             <BaseButton
               v-if="item.can.show.visible"

@@ -38,7 +38,7 @@ const blood_types = [
 const roles = [
     {
         label: "Name",
-        prop: "description",
+        prop: "name",
         maxWidth: 220,
         sortable: true,
     },
