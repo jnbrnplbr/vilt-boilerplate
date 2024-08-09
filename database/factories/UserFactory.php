@@ -17,6 +17,9 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $b= [1,2,3,4,5,6,7,8];
+        $g =[1,2,3];
+        $r= [1,2,3,4,5,6];
         return [
             // 'first_name' => fake()->name(),
             // 'middle_name' => fake()->name(),
@@ -32,14 +35,14 @@ class UserFactory extends Factory
             'password'      => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
             'prefix'        => 'Mr.',
             'suffix'        => '',
-            'first_name'    => 'Brye',
-            'middle_name'   => 'Plata',
-            'last_name'     => 'Ebora',
-            'contact'       => '09056677255',
+            'first_name'    => fake()->firstName($gender = 'male'|'female'),
+            'middle_name'   => '',
+            'last_name'     => fake()->lastName($gender = 'male'|'female'),
+            'contact'       => fake()->phoneNumber(),
             'birthday'      => now(),
-            'blood_type_id' => 1,
-            'gender_id'     => 1,
-            'role_id'       => 1,
+            'blood_type_id' => $b[array_rand($b)],
+            'gender_id'     => $g[array_rand([1,2,3])],
+            'role_id'       => $r[array_rand([1,2,3,4,5])],
             'created_by'    => 1
         ];
     }

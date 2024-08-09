@@ -43,6 +43,7 @@ const props = defineProps({
         </SectionTitleLineWithButton>
         <CardBox class="mb-6" has-table>
             <BaseTable 
+                :itemPerPage="10"
                 :items="users"
                 :settings="tableSetting"
                 :checkable="{visible: true, props: 'name'}"

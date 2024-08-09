@@ -17,16 +17,15 @@ import { users as tableSetting } from "@/Constants/table-utilities";
 const props = defineProps({
     users: Object
 })
-
 </script>
 
 <template>
     <LayoutAuthenticated>
-    <Head title="Utilities: Users List" />
+    <Head title="File Maintenance: Assistant List" />
     <SectionMain>
         <SectionTitleLineWithButton
             :icon="mdiChartTimelineVariant"
-            title="Patients"
+            title="Assistants"
             main
         >
             <template #links>

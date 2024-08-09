@@ -42,7 +42,7 @@ class UserController extends Controller
                                 ],
                                 'delete'            => [
                                     'visible'   => true,
-                                    'route'     => route('roles:destroy', $item->id)
+                                    'route'     => route('users:destroy', $item->id)
                                 ]
                             ],
                         ];
@@ -77,7 +77,6 @@ class UserController extends Controller
 
     public function store (Request $request)
     {
- 
         try {
             $validated = $this->validate($request,[
                 'prefix'        => 'nullable',
@@ -93,7 +92,7 @@ class UserController extends Controller
                 'birthday'      => 'nullable|date'
             ],$this->messages());
     
-            $validated = $this->reassignment($validated);
+            $validated = $this->reassignment('create',$validated);
             if(User::create($validated))
             {
                 return back()->with('alert', ['type' => 'success', 'message' => 'Successfully Added.']);
@@ -155,7 +154,8 @@ class UserController extends Controller
                 'role'          => [
                     'id'    => $user->role->id,
                     'label' => $user->role->name,
-                ]
+                ],
+                'active' => $user->is_active
             ],
             'roles' => Role::orderBy('name')
                 ->get()
@@ -180,27 +180,171 @@ class UserController extends Controller
 
     public function update (Request $request, User $user)
     {
-        return dd($request);
+        try 
+        {
+            $validated = $this->validate($request,[
+                'prefix'        => 'nullable',
+                'suffix'        => 'nullable',
+                'first_name'    => 'required|regex:/^[a-zA-Z]+$/u',
+                'middle_name'   => 'nullable|regex:/^[a-zA-Z]+$/u',
+                'last_name'     => 'required|regex:/^[a-zA-Z]+$/u',
+                'contact'       => 'required',
+                'gender.id'     => 'nullable|exists:genders,id',
+                'blood_type.id' => 'nullable|exists:blood_types,id',
+                'role.id'       => 'required|exists:roles,id',
+                'email'         => 'required|email|unique:users,id',
+                'birthday'      => 'nullable|date',
+                'active'        => 'boolean'
+            ],$this->messages());
+            
+            $validated = $this->reassignment('update',$validated);
+
+            if($user->update($validated) && $user->touch())
+            {
+                return back()->with('alert', ['type' => 'success', 'message' => 'Successfully Updated.']);
+            }
+            
+        }catch(Exception $e)
+        {
+            $msg = Arr::flatten(array_values($e->validator->messages()->messages()));
+            return back()->with('alert', ['type' => 'error', 'message' => str_replace(',',' ',implode(', ', $msg))]);
+        }
+
     }
-    
+
+    public function destroy (User $user)
+    {
+        if($user->delete())
+        {
+            return redirect(route('users:index'))->with('alert', ['type' => 'success', 'message' => 'Successfully Deleted.']);
+        }
+
+        return back()->with('alert', ['type'=>'error', 'message'=>'An error occured.']);
+    }
+
+
+    public function assistants ()
+    {
+        $assistant = Role::where('code', 'ASSIST')->first();
+        return Inertia::render('Files/Assistants/Index', [
+            'users' => 
+                User::where('role_id', $assistant->id)
+                    ->orderBy('last_name','desc')
+                    ->get()
+                    ->transform(function ($item) {
+                        return [
+                            'id'                => $item->id,
+                            'name'              => $item->fullName(),
+                            'email'             => $item->email,
+                            'role'              => $item->role->name,
+                            'created_at'        => $item->created_at->format('j F Y'),
+                            'created_by'        => $item->createdBy->first_name.' '.$item->createdBy->last_name,
+                            'can'   => [
+                                'show' => [
+                                    'visible'   => true,
+                                    'route'     => route('users:show',$item->id)
+                                ],
+                                'edit' => [
+                                    'visible'   => true,
+                                    'route'     => route('users:edit',$item->id)
+                                ],
+                                'delete'            => [
+                                    'visible'   => true,
+                                    'route'     => route('users:destroy', $item->id)
+                                ]
+                            ],
+                        ];
+                    }),
+        ]);
+    }
     public function doctors ()
     {
-        return Inertia::render('Files/Doctors/Index');
+        $doctor = Role::where('code', 'DOCTOR')->first();
+        return Inertia::render('Files/Doctors/Index', [
+            'users' => 
+                User::where('role_id', $doctor->id)
+                    ->orderBy('last_name','desc')
+                    ->get()
+                    ->transform(function ($item) {
+                        return [
+                            'id'                => $item->id,
+                            'name'              => $item->fullName(),
+                            'email'             => $item->email,
+                            'role'              => $item->role->name,
+                            'created_at'        => $item->created_at->format('j F Y'),
+                            'created_by'        => $item->createdBy->first_name.' '.$item->createdBy->last_name,
+                            'can'   => [
+                                'show' => [
+                                    'visible'   => true,
+                                    'route'     => route('users:show',$item->id)
+                                ],
+                                'edit' => [
+                                    'visible'   => true,
+                                    'route'     => route('users:edit',$item->id)
+                                ],
+                                'delete'            => [
+                                    'visible'   => true,
+                                    'route'     => route('users:destroy', $item->id)
+                                ]
+                            ],
+                        ];
+                    }),
+        ]);
     }
-
     public function patients ()
     {
-        return Inertia::render('Files/Patients/Index');
+        $patient = Role::where('code', 'Patient')->first();
+        return Inertia::render('Files/Patients/Index', [
+            'users' => 
+                User::where('role_id', $patient->id)
+                    ->orderBy('last_name','desc')
+                    ->get()
+                    ->transform(function ($item) {
+                        return [
+                            'id'                => $item->id,
+                            'name'              => $item->fullName(),
+                            'email'             => $item->email,
+                            'role'              => $item->role->name,
+                            'created_at'        => $item->created_at->format('j F Y'),
+                            'created_by'        => $item->createdBy->first_name.' '.$item->createdBy->last_name,
+                            'can'   => [
+                                'show' => [
+                                    'visible'   => true,
+                                    'route'     => route('users:show',$item->id)
+                                ],
+                                'edit' => [
+                                    'visible'   => true,
+                                    'route'     => route('users:edit',$item->id)
+                                ],
+                                'delete'            => [
+                                    'visible'   => true,
+                                    'route'     => route('users:destroy', $item->id)
+                                ]
+                            ],
+                        ];
+                    }),
+        ]);
     }
 
 
-    public function reassignment($validated)
+    public function reassignment($action, $validated)
     {
+
+        if($action === 'create')
+        {
+            $validated['password']      = Hash::make(Str::password(16,true,true,false,false));
+            $validated['created_by']    = Auth::user()->id;
+        }
+
+        if($action === 'update')
+        {
+            $validated['is_active'] = $validated['active'];
+        }
+
         $validated['gender_id']     = $validated['gender']['id'];
         $validated['blood_type_id'] = $validated['blood_type']['id'];
         $validated['role_id']       = $validated['role']['id'];
-        $validated['password']      = Hash::make(Str::password(16,true,true,false,false));
-        $validated['created_by']    = Auth::user()->id;
+
         return $validated;
     }
 

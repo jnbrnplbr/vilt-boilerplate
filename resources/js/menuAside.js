@@ -91,6 +91,7 @@ export default [
         label: "Users",
         menu: [
           {
+            route: "users:assistants",
             label: "Assistants",
           },
           {

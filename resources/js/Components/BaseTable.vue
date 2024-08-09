@@ -197,6 +197,13 @@ const destroy = () => {
     <BaseLevel>
       <BaseButtons>
         <BaseButton
+          label="Previous"
+          :color="page === currentPage ? 'lightDark' : 'whiteDark'"
+          small 
+          :disabled="currentPageHuman <= 1"
+          @click="currentPage = currentPage - 1"
+        />
+        <BaseButton
           v-for="page in pagesList"
           :key="page"
           :active="page === currentPage"
@@ -204,6 +211,13 @@ const destroy = () => {
           :color="page === currentPage ? 'lightDark' : 'whiteDark'"
           small
           @click="currentPage = page" 
+        />
+        <BaseButton
+          :disabled="currentPageHuman >= numPages"
+          @click="currentPage = currentPage + 1"
+          label="Next"
+          :color="page === currentPage ? 'lightDark' : 'whiteDark'"
+          small 
         />
       </BaseButtons>
       <small>Page {{ currentPageHuman }} of {{ numPages }}</small>
